@@ -2,6 +2,7 @@
 
 namespace danielme85\LaravelLogToDB;
 
+use App\Events\PublishLogUpdated;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 
@@ -111,6 +112,7 @@ class LogToDbCustomLoggingHandler extends AbstractProcessingHandler
                     $this->saveWithQueueName,
                     $this->saveWithQueueConnection);
                 $log->newFromMonolog($record);
+                PublishLogUpdated::dispatch($record['message']);
             } catch (\Exception $e) {
 
             }
