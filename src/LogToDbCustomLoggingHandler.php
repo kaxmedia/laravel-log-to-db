@@ -112,7 +112,7 @@ class LogToDbCustomLoggingHandler extends AbstractProcessingHandler
                     $this->saveWithQueueName,
                     $this->saveWithQueueConnection);
                 $log->newFromMonolog($record);
-                PublishLogUpdated::dispatch($record['message']);
+                PublishLogUpdated::dispatch($record['created_at'], $record['level_name'], $record['message']);
             } catch (\Exception $e) {
 
             }
